@@ -6,21 +6,19 @@ import Layout from '../components/layout'
 import Login from '../pages/login'
 import Product from '../pages/product'
 import ProductDetail from '../pages/productDetail'
+import ProductPage from '../components/productPage'
 const AppRouter = () => {
     return (
         <Routes>
-            {/* <Route  path='*' element={<div>Page Not Found</div>}/>
-      <Route index element={<HomePage />} />
-      <Route path='/about' element={<About/>}/> */}
-        <Route path='/login' element={<Login/>}/>
-        <Route  path='*' element={<div>Page Not Found</div>}/>
+            <Route path='/login' element={<Login />} />
+            <Route path='*' element={<div>Page Not Found</div>} />
             <Route element={<Layout />}>
                 <Route index element={<HomePage />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/product' element={<Product />} />
+                <Route path='/shop' element={<ProductPage />} />
                 <Route path='/product/:id' element={<ProductDetail />} />
             </Route>
-            
         </Routes>
     )
 }
