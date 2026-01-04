@@ -23,10 +23,17 @@ const ProductPage = () => {
             .then(data => setCategory(data))
             .catch((err) => console.log(err))
     }
-    console.log(productData)
+    // console.log(productData)
     
     const filterProduct = productData.filter(item => item.title.toLowerCase().includes(searchProduct.toLowerCase()) && selectedCategory === "" || item.category == selectedCategory )
-    console.log(filterProduct)
+     const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const lastIndex = currentPage * itemsPerPage; // 3 * 5 = 15
+    const firstIndex =  lastIndex - itemsPerPage //  15 - 5  = 10
+    const paginatedProduct = filterProduct.slice(firstIndex, lastIndex)
+    const totalPages = Math.ceil(filterProduct.length / itemsPerPage)
+
+
     useEffect(() => {
         console.log("First Time Load Product Component ");
         getAllProducts()
@@ -63,13 +70,27 @@ const ProductPage = () => {
                         <ProductCardSkeleton key={index} />
                     ))
                     :
-                    filterProduct.map((item, i) => (
+                    paginatedProduct.map((item, i) => (
                         <div key={i} className=" ">
                             <ProductCard product={item} />
 
                         </div>
                     ))
                 }
+                <br />
+                <div className=' w-fit'>
+                {
+                    [...Array(totalPages).keys()].map((page)=>(
+                        <button key={page + 1}
+                        className='border bg-gray-400  p-4 m-1'
+                        
+                        onClick={()=> setCurrentPage(page + 1 )}
+                        >
+                             {page + 1}
+                        </button>
+                    ))
+                }
+                </div>
             </div>
         </>
     )
