@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HeroSection } from "../components/herosection";
 import { ProductCard } from "../components/productCard";
 import { PromoBanner } from "../components/adSection";
 import ProductCardSkeleton from "../components/loaderSkeleton";
+import { UserContext } from "../context/userContext";
 
 function Home() {
     const [productData, setProductData] = useState([])
@@ -15,11 +16,13 @@ function Home() {
             .catch((err) => console.log(err))
             setLoading(false)
     }
-    console.log(productData)
+    // console.log(productData)
     useEffect(() => {
         console.log("First Time Load Product Component ");
         getAllProducts()
     }, [])
+    const {user} = useContext(UserContext)
+    console.log(user)
 
     return (
         <div className="min-h-screen">

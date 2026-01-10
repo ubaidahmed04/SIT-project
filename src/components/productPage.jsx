@@ -25,11 +25,17 @@ const ProductPage = () => {
     }
     // console.log(productData)
     
+    const filteredProduct = productData.filter(item => item.title.toLowerCase().includes(searchProduct.toLowerCase()))
+    
+    
+    
+    
+    
     const filterProduct = productData.filter(item => item.title.toLowerCase().includes(searchProduct.toLowerCase()) && selectedCategory === "" || item.category == selectedCategory )
      const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
-    const lastIndex = currentPage * itemsPerPage; // 3 * 5 = 15
-    const firstIndex =  lastIndex - itemsPerPage //  15 - 5  = 10
+    const lastIndex = currentPage * itemsPerPage; // 1 * 5 = 5
+    const firstIndex =  lastIndex - itemsPerPage //  5 - 5  = 0
     const paginatedProduct = filterProduct.slice(firstIndex, lastIndex)
     const totalPages = Math.ceil(filterProduct.length / itemsPerPage)
 
@@ -49,7 +55,6 @@ const ProductPage = () => {
                     type="text"
                     placeholder="Search products..."
                     onChange={(e)=>setSearchProduct(e.target.value)}
-                    value={searchProduct}
                     className="bg-transparent border-none focus:outline-none text-sm ml-2 w-full"
                 />
             </div>

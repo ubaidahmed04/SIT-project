@@ -1,32 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form"
 import Home from './home'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router";
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false)
     console.log(!showPassword) //
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
     } = useForm()
-
+    const { user, login  } = useContext(UserContext)
     const password = watch("password");
-    console.log(password)
+    // console.log(password)
     const handleLogin = (data) => {
-        console.log(data)
-        // get previous array
-        //   const users = JSON.parse(localStorage.getItem("users")) || [];
+        // console.log(data)
+        // setUser(data)
+        login(data)
+        navigate('/')
 
-        //   // add new item
-        //   users.push(data);
-
-        //   // save back
-        //   localStorage.setItem("users", JSON.stringify(users));
     };
+    // console.log(user)
 
     console.log(errors)
     return (
@@ -68,7 +68,7 @@ function Login() {
                             {...register("password", {
                                 required: "Password is Required",
                                 minLength: {
-                                    value: 7,
+                                    value: 4,
                                     message: "Atleast 7 character is required"
                                 },
                                 pattern: {
@@ -92,7 +92,7 @@ function Login() {
                             {...register("confirmPassword", {
                                 required: "confirm Password is Required",
                                 minLength: {
-                                    value: 7,
+                                    value: 4,
                                     message: "Atleast 7 character is required"
                                 },
                                 pattern: {
@@ -107,7 +107,7 @@ function Login() {
                         }
                     </span>
                     <button type="" className="bg-blue-300 rounded-lg w-20 h-10 m-3 ">Login</button>
-
+                        
                 </form>
             </div>
         </>

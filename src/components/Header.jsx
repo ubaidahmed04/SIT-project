@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router'; // Changed from 'react-router' to 'react-router-dom'
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react'; // Using lucide-react for icons
+import { Search, ShoppingCart, User, Menu, X, LogOut } from 'lucide-react'; // Using lucide-react for icons
+import { UserContext } from '../context/userContext';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const {user, logout} = useContext(UserContext)
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="container mx-auto px-6 py-4">
@@ -39,6 +40,7 @@ const Header = () => {
             <Link to="/login" className="text-gray-600 hover:text-blue-600 transition-colors">
               <User size={22} />
             </Link>
+            {user?.username}
             
             <Link to="/cart" className="relative text-gray-600 hover:text-blue-600 transition-colors">
               <ShoppingCart size={22} />
@@ -46,7 +48,7 @@ const Header = () => {
                 3
               </span>
             </Link>
-
+            <button className='flex  ' onClick={()=>logout()}> <LogOut/> LogOut</button>
             {/* Mobile Menu Button */}
             <button className="lg:hidden text-gray-600" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X size={24} /> : <Menu size={24} />}
